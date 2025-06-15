@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>代購費用試算</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+  <h1>代購費用試算</h1>
+
+  <label for="usdPrice">美國商品總價（USD）：</label>
+  <input type="number" id="usdPrice" placeholder="例如：49 或多件總價 120" />
+
+  <label for="exchangeRate">匯率（自動載入）：</label>
+  <input type="number" id="exchangeRate" readonly />
+  <div class="footnote">匯率來源：<a href="https://exchangerate.host" target="_blank">ExchangeRate.host</a></div>
+
+  <label for="shippingFee">第二階段：寄送費用（固定 NT$60）：</label>
+  <input type="number" id="shippingFee" value="60" readonly />
+
+  <button onclick="calculate()">計算費用</button>
+
+  <div class="result" id="result" style="display: none;">
+    <p><strong>第一階段費用：</strong>NT$ <span id="stage1"></span></p>
+    <p><strong>第二階段費用：</strong>NT$ <span id="stage2"></span></p>
+    <div class="footnote">若多件商品，實際寄送費可能增加，請以實際寄出金額為準。</div>
+    <hr />
+    <p><strong>總價（第一 + 第二階段）：</strong>NT$ <span id="total"></span></p>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+
+</html>
