@@ -4,31 +4,116 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>代購費用試算</title>
-  <link rel="stylesheet" href="style.css" />
+  <title>美國 Lululemon 代購試算小工具</title>
+  <style>
+    body {
+      font-family: 'Helvetica Neue', sans-serif;
+      padding: 2rem;
+      max-width: 500px;
+      margin: auto;
+      background-color: #f9f9f9;
+      color: #333;
+    }
+
+    h1 {
+      font-size: 1.5rem;
+      margin-bottom: 1.5rem;
+      text-align: center;
+    }
+
+    label {
+      display: block;
+      margin-top: 1rem;
+      font-weight: bold;
+    }
+
+    input {
+      width: 100%;
+      padding: 0.5rem;
+      font-size: 1rem;
+      margin-top: 0.25rem;
+      box-sizing: border-box;
+    }
+
+    button {
+      margin-top: 1rem;
+      padding: 0.6rem 1.2rem;
+      background-color: #000;
+      color: #fff;
+      border: none;
+      cursor: pointer;
+      font-size: 1rem;
+    }
+
+    button:hover {
+      background-color: #444;
+    }
+
+    .small-button {
+      font-size: 0.8rem;
+      padding: 0.3rem 0.6rem;
+      background-color: #666;
+      margin-left: 0.5rem;
+    }
+
+    .small-button:hover {
+      background-color: #888;
+    }
+
+    small {
+      color: #777;
+      display: block;
+      margin-top: 0.25rem;
+    }
+
+    #result {
+      margin-top: 2rem;
+      background: #fff;
+      padding: 1rem;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+    }
+
+    #result p {
+      margin: 0.5rem 0;
+    }
+
+    #result small {
+      margin-top: 1rem;
+      display: block;
+      line-height: 1.5;
+    }
+  </style>
 </head>
 
 <body>
-  <h1>代購費用試算</h1>
+  <h1>Lululemon 代購試算</h1>
 
-  <label for="usdPrice">美國商品總價（USD）：</label>
-  <input type="number" id="usdPrice" placeholder="例如：49 或多件總價 120" />
+  <label for="usdPrice">商品金額（USD）：</label>
+  <input type="number" id="usdPrice" placeholder="請輸入商品價格" />
 
   <label for="exchangeRate">匯率（自動載入）：</label>
-  <input type="number" id="exchangeRate" readonly />
-  <div class="footnote">匯率來源：<a href="https://exchangerate.host" target="_blank">ExchangeRate.host</a></div>
+  <div style="display: flex; align-items: center;">
+    <input type="text" id="exchangeRate" readonly style="flex: 1;" />
+    <button class="small-button" onclick="reloadExchangeRate()">重新載入</button>
+  </div>
+  <small id="rateSourceNote">資料來源：政府開放資料／台銀網站（備援）</small>
 
-  <label for="shippingFee">第二階段：寄送費用（固定 NT$60）：</label>
-  <input type="number" id="shippingFee" value="60" readonly />
+  <button onclick="calculate()">計算總費用</button>
 
-  <button onclick="calculate()">計算費用</button>
+  <div id="result" style="display:none;">
+    <p>第一階段商品金額（含代購費 x1.2）：NT$<span id="stage1"></span></p>
+    <p>第二階段預估寄送費：NT$<span id="stage2">60</span></p>
+    <!-- 加入灰色分隔線 -->
+    <hr style="border: none; border-top: 1px solid #ccc; margin: 1rem 0;" />
 
-  <div class="result" id="result" style="display: none;">
-    <p><strong>第一階段費用：</strong>NT$ <span id="stage1"></span></p>
-    <p><strong>第二階段費用：</strong>NT$ <span id="stage2"></span></p>
-    <div class="footnote">若多件商品，實際寄送費可能增加，請以實際寄出金額為準。</div>
-    <hr />
-    <p><strong>總價（第一 + 第二階段）：</strong>NT$ <span id="total"></span></p>
+    <p><strong>總金額預估：約 NT$<span id="total"></span></strong></p>
+    <small>
+      💡 商品金額已自動加入代購服務費（1.2 倍計算）<br />
+      🚚 第二階段費用為單件預估 NT$60。<br />
+      若為多件或包裝重量較重，實際寄送費可能會調整，<br />
+      請以實際寄出時費用為準。
+    </small>
   </div>
 
   <script src="script.js"></script>
