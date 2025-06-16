@@ -42,8 +42,7 @@ This is a lightweight frontend tool to help estimate the **total cost of purchas
 
 ## 🖼 Preview
 
-> *(Add a screenshot here if desired)*  
-> `![Screenshot](screenshot.png)`
+> ![alt text](image.png)
 
 ## 👩‍💻 Author
 
