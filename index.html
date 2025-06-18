@@ -385,7 +385,6 @@
       console.log("頁面載入完成，開始載入匯率...");
       fetchTaiwanBankRate();
 
-      // 為商品金額輸入框添加 Enter 鍵事件
       document.getElementById("usdPrice").addEventListener("keypress", function (event) {
         if (event.key === "Enter") {
           calculate();
