@@ -85,10 +85,11 @@ function calculate() {
 
   const stage1 = usdPrice * exchangeRate * 1.2;
   const total = stage1 + shippingFee;
+  const roundedStage1 = Math.ceil(stage1); // 無條件進位
 
-  document.getElementById("stage1").innerText = Math.round(stage1).toLocaleString();
+  document.getElementById("stage1").innerText = roundedStage1.toLocaleString();
   document.getElementById("stage2").innerText = shippingFee.toLocaleString();
-  document.getElementById("total").innerText = Math.round(total).toLocaleString();
+  document.getElementById("total").innerText = Math.ceil(total).toLocaleString();
   document.getElementById("result").style.display = "block";
 }
 
